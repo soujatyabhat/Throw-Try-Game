@@ -9,7 +9,6 @@ int main()
 {
 	
 	char ch;
-	
 	back:
 		
 		//Clear Buffer
@@ -54,7 +53,12 @@ int main()
 		row = 12;
 		column = 4;
 		srand(time(NULL));
-		char design[12][4]; //Board
+		
+		//Board
+		char **design = new char*[12];
+		for(int i = 0; i < 12; ++i)
+   			 design[i] = new char[4];
+   		
 		
 		//Board Creation
 		for(index = 0; index < 10; index++)
@@ -100,7 +104,7 @@ int main()
 	
 	
 	//Result Declearation//
-	if (design[number_of_attemp][0] == 'O')
+	if (design[number_of_attemp - 1][0] == 'O')
 		cout << "Conglatunation " <<name << "!! You are Win :)" <<endl <<endl;
 	else
 		cout << "Aww " <<name << "!! You are loss :(" <<endl <<endl;
@@ -120,5 +124,7 @@ int main()
 			cout << "Good Bye " << name << ". See you again :)";
 		}
 		
+	delete[] design;
+	
 	return 0;
 }
