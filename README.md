@@ -1,4 +1,4 @@
-# Throw&Try Game
+# Throw & Try Game
 Description : You have to predit that you will win the game or not
 <br>
 Language : C++, Windows Batch
