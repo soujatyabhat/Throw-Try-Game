@@ -3,17 +3,33 @@
 #include <math.h>
 #include <unistd.h>
 #include <time.h>
+#include <fstream>
 using namespace std;
+
+//Count Score
+static int score;
+
+//Save name in file 
+void create(const string name)
+{
+  ofstream MyFile("name.txt");
+  MyFile << name;
+  MyFile.close();
+}
 
 int main()
 {
 	
 	char ch;
-	back:
 		
+		int choice;
+		cout << "*************** \t Welcome to Win-Predict \t ***************** "<<endl;
+		cout << "Developed By : Soujatya Bhattacharya" <<endl;
+			
 		//Clear Buffer
 		fflush(stdin);
 		
+		game:
 		//All Data members
 		string name;
 		int index = 0;
@@ -23,14 +39,30 @@ int main()
 		char key;
 		char *input = new char[number_of_attemp];
 		
-		//display title
+		
+		//Display title
 		system("title Win-Predict Game");
 		
-		cout << "Enter You Name : ";
-		getline(cin,name);
+			
+		//Check name is in file or not
+		if (ch != 'y')
+			{
+				cout << "Enter You Name : ";
+				getline(cin,name);
+				create(name);
+				
+			}
+		else
+			{
+				ifstream MyFile("name.txt");
+				getline (MyFile, name);	
+				cout << "Player Name : " << name << endl;
+				MyFile.close();
+			}
+			
 		
+		//Get Keys
 		cout<< "Press any keys : ";
-		
 		while(1)
 		{
 			 key = getch();
@@ -48,13 +80,10 @@ int main()
 		system("cls");
 		
 		//Board Initialize //
-		int row,column;
 		int board_rand,display;
-		row = 12;
-		column = 4;
 		srand(time(NULL));
 		
-		//Board
+		//Board column create
 		char **design = new char*[12];
 		for(int i = 0; i < 12; ++i)
    			 design[i] = new char[4];
@@ -70,7 +99,6 @@ int main()
 						design[index][1] = '|';
 						design[index][2] = ' ';
 						design[index][3] = '|';
-	
 					}
 				else
 					{
@@ -81,11 +109,12 @@ int main()
 					}
 			}
 			
-		//Board Display	
+			
 		for (display = 0; display < number_of_attemp; display++)
 		{
 			cout << "Player Name : " << name<<endl;
 			cout << "Count : " << display+1<< endl << "Destination Row : " << number_of_attemp << endl;
+			cout << "Score : " << score <<endl;
 			
 			cout <<"\t-------------"<<endl;
 			design[display][2] = '*';
@@ -102,21 +131,28 @@ int main()
 			system("cls");
 		}
 	
-	
+	//clear buffer
+	fflush(stdin);
+			
 	//Result Declearation//
 	if (design[number_of_attemp - 1][0] == 'O')
-		cout << "Conglatunation " <<name << "!! You are Win :)" <<endl <<endl;
+		{
+			//Count Score
+			score++;
+			cout << "Conglatunation " <<name << "!! You Win :)" <<endl <<endl;
+		}
 	else
-		cout << "Aww " <<name << "!! You are loss :(" <<endl <<endl;
+		cout << "Aww " <<name << "!! You lose :(" <<endl <<endl;
 		
 	
+
 	//Replay or Not
 	cout << "Do you want to play again ? (y/n)";
-	ch = getch();
+	cin >> ch;
 	if (ch == 'y') 
 		{
 			system("cls");
-			goto back;
+			goto game;
 		}
 	else
 		{
@@ -124,6 +160,7 @@ int main()
 			cout << "Good Bye " << name << ". See you again :)";
 		}
 		
+	//Dealocate table
 	delete[] design;
 	
 	return 0;
