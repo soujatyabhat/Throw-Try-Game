@@ -33,7 +33,7 @@ int main()
 		//All Data members
 		string name;
 		int index = 0;
-		srand(time(NULL));
+		srand(time(0));
 		int number_of_attemp = rand() % 10 + 1;
 		int counter = 0;
 		char key;
