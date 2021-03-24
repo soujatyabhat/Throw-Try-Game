@@ -1,5 +1,5 @@
 # Throw & Try Game
-Description : You have to predit that you will win the game or not
+Description : You have to predict that you will win the game or not
 <br>
 Language : C++, Windows Batch
 <br>
